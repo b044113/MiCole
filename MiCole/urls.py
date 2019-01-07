@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r"^admin/", admin.site.urls),
     url(r"^buscacole/", include("buscacole.urls", namespace="buscacole")),
+    url(r"^escuelas/", include("escuelas.urls", namespace="escuelas")),
+    url(r"^cuentas/", include("cuentas.urls", namespace="cuentas")),
 ]
