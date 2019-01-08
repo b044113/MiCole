@@ -16,7 +16,7 @@ class School(models.Model):
     phone = models.TextField(max_length=255, blank=False)   #TODO Mäs de un teléfono
     email = models.EmailField()                             #TODO Mäs de un mail
     web = models.URLField()
-    shifts = models.ManyToManyField('Shifts', blank=True)
+    shifts = models.ManyToManyField('Shift', blank=True)
     religion = models.ManyToManyField('Religion', blank=True)
     connected_school = models.ManyToManyField('School', blank=True)
     activity = models.ManyToManyField('Activity', blank=True)
@@ -56,7 +56,7 @@ class Specialization(models.Model):
         ordering = ["name"]
 
 
-class Shilft(models.Model):
+class Shift(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
