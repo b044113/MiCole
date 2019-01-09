@@ -121,6 +121,19 @@ class City(models.Model):
         ordering = ["name"]
 
 class Vacancy(models.Model):
-    school = models.ForeignKey('School', on_delete=models.CASCADE)
-    level = models.ForeignKey('Level', on_delete=models.CASCADE)
-    
+    school = models.ForeignKey('School', on_delete=models.CASCADE, blank=False)
+    grade = models.ManyToManyField('Grade', on_delete=models.CASCADE, blank=False)
+    vacancies = models.IntegerField(blank=False)
+
+    def __str__(self):
+        return ''.join([self.grade.name, ": ", str(self.vacanies)])
+
+class Grade(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    level = models.ForeignKey('Level', on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
