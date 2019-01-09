@@ -5,6 +5,9 @@ from . import views
 app_name = 'escuelas'
 
 urlpatterns = [
+    url(r'^$', views.SchoolListView.as_view(), name='escuelas'),
+    url(r"^escuela/(?P<pk>\d+)$", views.SchoolDetailView.as_view(), name='school-detail'),
+
     #url(r'^buscar/$', views.MarketListView.as_view(), name='markets'),
     #url(r'^market/(?P<pk>\d+)$', views.MarketDetailView.as_view(), name='market-detail'),
     #url(r'^symbols/$', views.SymbolListView.as_view(), name='symbols'),

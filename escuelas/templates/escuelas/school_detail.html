@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Nombre del Establecimiento: {{ school.name }}</h1>
+
+  <p><strong>Web:</strong> <a href="{{ school.web }}">{{ school.web }}</a></p>
+  <p><strong>Descripción:</strong> {{ school.description }}</p>
+  <p><strong>Dirección:</strong> {{ school.address }}</p>
+  <p><strong>Teléfono:</strong> {{ school.phone }}</p>
+  <p><strong>e-mail:</strong> {{ school.email }}</p>
+  <p><strong>Niveles:</strong> {% for level in school.level.all %} {{ level }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+{% endblock %}

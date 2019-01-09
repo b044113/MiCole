@@ -13,13 +13,28 @@ class School(models.Model):
     level = models.ManyToManyField('Level' ,blank=False)
     specialization = models.ManyToManyField('Specialization', blank=True)
     address = models.TextField(max_length=255, blank=False) #TODO Mäs de una dirección
+    post_code  = models.CharField(length=10, blank=False)
+    province = models.ForeignKey('Province', on_delete=models.SET_NULL, blank=False)  # models.CASCADE
+    locality = models.ForeignKey('Locality', on_delete=models.SET_NULL, blank=False)  # models.CASCADE
+    city = models.ForeignKey('City', on_delete=models.SET_NULL, blank=True)  # models.CASCADE
     phone = models.TextField(max_length=255, blank=False)   #TODO Mäs de un teléfono
-    email = models.EmailField()                             #TODO Mäs de un mail
-    web = models.URLField()
+    email = models.EmailField(blank=True)                             #TODO Mäs de un mail
+    web = models.URLField(blank=True)
     shifts = models.ManyToManyField('Shift', blank=True)
-    religion = models.ManyToManyField('Religion', blank=True)
+
+    RELIGIONS = (
+        ('l', 'Laico'),
+        ('c', 'Católico'),
+        ('j', 'Judío'),
+        ('e', 'Evangélico'),
+    )
+
+    religion = models.CharField(max_length=1, choices=RELIGIONS, blank=True, default='l',
+                              help_text='Orientación religiosa')
+
     connected_school = models.ManyToManyField('School', blank=True)
     activity = models.ManyToManyField('Activity', blank=True)
+    #TODO agregar barrio, localidad, provincia y georreferencia
 
     def __str__(self):
         return self.name
@@ -30,7 +45,7 @@ class School(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("schools:single", kwargs={"slug": self.slug})
+        return reverse("escuelas:school-detail", args=[str(self.id)])
 
 
     class Meta:
@@ -65,15 +80,6 @@ class Shift(models.Model):
     class Meta:
         ordering = ["name"]
 
-class Religion(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]
-
 class Activity(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -82,3 +88,39 @@ class Activity(models.Model):
 
     class Meta:
         ordering = ["name"]
+
+class Province(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
+class Locality(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    province = models.ForeignKey('Province', on_delete=models.SET_NULL) #models.CASCADE
+
+    def __str__(self):
+        return ''.join([self.name, ", ", self.province.name])
+
+    class Meta:
+        ordering = ["name"]
+
+
+class City(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    locality = models.ForeignKey('Locality', on_delete=models.SET_NULL) #models.CASCADE
+
+    def __str__(self):
+        return ''.join([self.name, ", ", self.locality.__str__()])
+
+    class Meta:
+        ordering = ["name"]
+
+class Vacancy(models.Model):
+    school = models.ForeignKey('School', on_delete=models.CASCADE)
+    level = models.ForeignKey('Level', on_delete=models.CASCADE)
+    

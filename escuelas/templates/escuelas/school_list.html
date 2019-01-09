@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Lista de escuelas</h1>
+
+    {% if school_list %}
+    <ul>
+
+      {% for school in school_list %}
+      <li>
+        <a href="{{ school.get_absolute_url }}">{{ school.name }}</a> ({{school.description}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay escuelas configuradas.</p>
+    {% endif %}
+{% endblock %}
