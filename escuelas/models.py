@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 
-import misaka
+#import misaka
 
 # Create your models here.
 class School(models.Model):
