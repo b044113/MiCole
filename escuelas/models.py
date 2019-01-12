@@ -41,7 +41,7 @@ class School(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        self.description_html = misaka.html(self.description)
+        self.description_html = self.description #misaka.html(self.description)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
