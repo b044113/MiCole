@@ -4,16 +4,39 @@
     <h1>Lista de escuelas</h1>
 
     {% if school_list %}
-    <ul>
 
-      {% for school in school_list %}
-      <li>
-        <a href="{{ school.get_absolute_url }}">{{ school.name }}</a> ({{school.description}})
-      </li>
-      {% endfor %}
+        <div class="row">
 
-    </ul>
+            {% for school in school_list %}
+
+                <div class="col-md-12 well">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ school.name }}</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            <p><strong>Web:</strong> <a href="{{ school.web }}">{{ school.web }}</a></p>
+                            <p><strong>Descripción:</strong> {{ school.description }}</p>
+                            <p><strong>Dirección:</strong> {{ school.address }}</p>
+                            <p><strong>Teléfono:</strong> {{ school.phone }}</p>
+                            <p><strong>e-mail:</strong> {{ school.email }}</p>
+                        </div>
+
+                        <div class="panel-footer text-right">
+                            <a href="{{ school.get_absolute_url }}">Más información...</a>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
     {% else %}
-      <p>No hay escuelas configuradas.</p>
+
+          <p>No hay escuelas configuradas.</p>
+
     {% endif %}
+
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+     <p>Búsqueda de: <strong>{{ query }}</strong></p>
+
+        {% if schools %}
+            <p>Encontrados {{ schools|length }} colegio{{ schools|pluralize }}.</p>
+            <ul>
+                {% for school in schools %}
+                <li>{{ school.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No se encontraron colegios que satisfagan la búsqueda.</p>
+        {% endif %}
+{% endblock %}

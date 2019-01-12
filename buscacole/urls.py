@@ -12,4 +12,7 @@ urlpatterns = [
     #url(r'^symbol/(?P<pk>[-\w]+)/getdata/$', views.get_values, name='get-values'),
     #url(r"^$", views.SymbolAnalysis.as_view(), name="all"),
     #url(r'^$', views.index, name='index'),
+    url(r'^$', views.search_form, name='searchform'),
+    url(r'^formulario_busqueda/$', views.search, name="search"),
 ]
+

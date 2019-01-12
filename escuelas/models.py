@@ -13,10 +13,10 @@ class School(models.Model):
     level = models.ManyToManyField('Level' ,blank=False)
     specialization = models.ManyToManyField('Specialization', blank=True)
     address = models.TextField(max_length=255, blank=False) #TODO Mäs de una dirección
-    post_code  = models.CharField(length=10, blank=False)
-    province = models.ForeignKey('Province', on_delete=models.SET_NULL, blank=False)  # models.CASCADE
-    locality = models.ForeignKey('Locality', on_delete=models.SET_NULL, blank=False)  # models.CASCADE
-    city = models.ForeignKey('City', on_delete=models.SET_NULL, blank=True)  # models.CASCADE
+    post_code  = models.CharField(max_length=10, blank=False, null=True)
+    province = models.ForeignKey('Province', on_delete=models.SET_NULL, null=True)  # models.CASCADE
+    locality = models.ForeignKey('Locality', on_delete=models.SET_NULL, null=True)  # models.CASCADE
+    city = models.ForeignKey('City', on_delete=models.SET_NULL, null=True, blank=True)  # models.CASCADE
     phone = models.TextField(max_length=255, blank=False)   #TODO Mäs de un teléfono
     email = models.EmailField(blank=True)                             #TODO Mäs de un mail
     web = models.URLField(blank=True)
@@ -101,7 +101,7 @@ class Province(models.Model):
 
 class Locality(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    province = models.ForeignKey('Province', on_delete=models.SET_NULL) #models.CASCADE
+    province = models.ForeignKey('Province', on_delete=models.CASCADE, blank=False) #models.SET_NULL
 
     def __str__(self):
         return ''.join([self.name, ", ", self.province.name])
@@ -112,7 +112,7 @@ class Locality(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    locality = models.ForeignKey('Locality', on_delete=models.SET_NULL) #models.CASCADE
+    locality = models.ForeignKey('Locality', on_delete=models.CASCADE, blank=False) #models.SET_NULL
 
     def __str__(self):
         return ''.join([self.name, ", ", self.locality.__str__()])
@@ -122,18 +122,18 @@ class City(models.Model):
 
 class Vacancy(models.Model):
     school = models.ForeignKey('School', on_delete=models.CASCADE, blank=False)
-    grade = models.ManyToManyField('Grade', on_delete=models.CASCADE, blank=False)
+    grade = models.ForeignKey('Grade', on_delete=models.CASCADE, blank=False)
     vacancies = models.IntegerField(blank=False)
 
     def __str__(self):
-        return ''.join([self.grade.name, ": ", str(self.vacanies)])
+        return ''.join([self.school.name, ', ', self.grade.name, ": ", str(self.vacancies)])
 
 class Grade(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    level = models.ForeignKey('Level', on_delete=models.SET_NULL)
+    level = models.ForeignKey('Level', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return ''.join([self.name, ', ', self.level.name])
 
     class Meta:
         ordering = ["name"]

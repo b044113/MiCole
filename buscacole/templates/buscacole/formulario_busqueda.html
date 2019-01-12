@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form id="searchform" class="form-inline" action="{% url 'buscacole:search' %}" method="get" accept-charset="utf-8">
+        <input class="form-control" id="searchbox" name="q" type="text">
+
+        <button class="btn btn-primary" type="submit" value="Search">
+            <i class="fa fa-search">buscar</i>
+        </button>
+    </form>
+{% endblock %}
