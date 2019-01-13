@@ -1,36 +1,84 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form id="searchform" class="form-inline" data-grades-url="{% url 'buscacole:ajax_load_grades' %}" action="{% url 'buscacole:search' %}" method="get" accept-charset="utf-8">
+
+    <div class="alert alert-success container" role="alert">
+        <h4 class="alert-heading">Búsqueda de Vacantes</h4>
+        <p>Especificá la zona en la que buscás colegio y luego el nivel y sala/grado/año específico que búscas</p>
+        <p>Si tenés que buscar más de una vacante, pulsá el botón con el signo más y podrás especificar hasta 5 vacantes.</p>
+        <hr>
+        <p class="mb-0">Recordá que la búsqueda te traerá los colegios que tengan <strong>TODAS</strong> las vacantes que buscás.</p>
+    </div>
+
+    <form id="searchform" class="container" data-grades-url="{% url 'buscacole:ajax_load_grades' %}" action="{% url 'buscacole:search' %}" method="get" accept-charset="utf-8">
         <div class="form-row">
-            <div class="form-group col-md-18">
+            <div class="form-group col-12">
                 <input class="form-control" id="searchbox" name="q" type="text" placeholder="Provincia / Localidad / Ciudad">
             </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-18">
-                <label for="level">Nivel</label>
+        <div class="row">
+            <div class="form-group col-md-1">
+                <label for="level" class="h4">Nivel</label>
+            </div>
+            <div class="form-group col-md-4">
                 <select class="form-control" id="level" name="level">
+                    <option value="">Elegir...</option>
                     {% for level in levels %}
                         <option value="{{ level.pk }}">{{ level.name }}</option>
                     {% endfor %}
                 </select>
             </div>
-        </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-18">
-                <label for="grade">Grado</label>
+            <div class="form-group col-md-1">
+                <label for="grade" class="h4">Grado</label>
+            </div>
+            <div class="form-group col-md-4">
                 <select class="form-control" id="grade" name="grade">
 
                 </select>
             </div>
+
+            <div class="form-group col-md 1">
+                <button class="btn btn-success" id="plus" onclick="Show()">+</button>
+            </div>
         </div>
 
-        <button class="btn btn-primary" type="submit" value="Search">
-            <i class="fa fa-search">buscar</i>
-        </button>
+        <div class="row" id="filter_1" style="display:none;">
+            <div class="form-group col-md-1">
+                <label for="level" class="h4">Nivel</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control" id="level_1" name="level">
+                    <option value="">Elegir...</option>
+                    {% for level in levels %}
+                        <option value="{{ level.pk }}">{{ level.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-1">
+                <label for="grade" class="h4">Grado</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control" id="grade_1" name="grade">
+
+                </select>
+            </div>
+
+            <div class="form-group col-md 1">
+                <button class="btn btn-success" id="plus_1" onclick="Show()">+</button>
+                <button class="btn btn-danger" id="less_1" onclick="Hide()">-</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <button class="btn btn-primary" type="submit" value="Search">
+                    <i class="fa fa-search">buscar</i>
+                </button>
+            </div>
+        </div>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -50,5 +98,46 @@
                     }
                });
             });
-        </script>
+
+
+        function Show() {
+            switch(event.target.id) {
+                case "plus":
+                    var x = document.getElementById("filter_1");
+                    break;
+                case "plus_1":
+                    var x = document.getElementById("filter_2");
+                    break;
+                case "plus_2":
+                    var x = document.getElementById("filter_3");
+                    break;
+                case "plus_3":
+                    var x = document.getElementById("filter_4");
+                    break;
+            }
+
+            x.style.display = "block";
+        }
+
+        function Hide() {
+            switch(event.target.id) {
+                case "less_1":
+                    var x = document.getElementById("filter_1");
+                    break;
+                case "less_2":
+                    var x = document.getElementById("filter_2");
+                    break;
+                case "less_3":
+                    var x = document.getElementById("filter_3");
+                    break;
+                case "less_4":
+                    var x = document.getElementById("filter_4");
+                    break;
+            }
+
+            x.style.display = "none";
+        }
+    </script>
+
+
 {% endblock %}
