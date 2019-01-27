@@ -17,39 +17,12 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="filter_1" >
             <div class="form-group col-md-1">
                 <label for="level" class="h4">Nivel</label>
             </div>
             <div class="form-group col-md-4">
-                <select class="form-control" id="level" name="level">
-                    <option value="">Elegir...</option>
-                    {% for level in levels %}
-                        <option value="{{ level.pk }}">{{ level.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="form-group col-md-1">
-                <label for="grade" class="h4">Grado</label>
-            </div>
-            <div class="form-group col-md-4">
-                <select class="form-control" id="grade" name="grade">
-
-                </select>
-            </div>
-
-            <div class="form-group col-md 1">
-                <button class="btn btn-success" id="plus" onclick="Show()">+</button>
-            </div>
-        </div>
-
-        <div class="row" id="filter_1" style="display:none;">
-            <div class="form-group col-md-1">
-                <label for="level" class="h4">Nivel</label>
-            </div>
-            <div class="form-group col-md-4">
-                <select class="form-control" id="level_1" name="level">
+                <select class="form-control level" id="level_1" >
                     <option value="">Elegir...</option>
                     {% for level in levels %}
                         <option value="{{ level.pk }}">{{ level.name }}</option>
@@ -66,9 +39,119 @@
                 </select>
             </div>
 
+            <div class="col-md 1">
+                <button class="btn btn-success" id="plus_1" type="button">+</button>
+            </div>
+        </div>
+
+        <div class="row" id="filter_2" style="display:none;">
+            <div class="form-group col-md-1">
+                <label for="level" class="h4">Nivel</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control level" id="level_2">
+                    <option value="">Elegir...</option>
+                    {% for level in levels %}
+                        <option value="{{ level.pk }}">{{ level.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-1">
+                <label for="grade" class="h4">Grado</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control" id="grade_2" name="grade_2">
+
+                </select>
+            </div>
+
             <div class="form-group col-md 1">
-                <button class="btn btn-success" id="plus_1" onclick="Show()">+</button>
-                <button class="btn btn-danger" id="less_1" onclick="Hide()">-</button>
+                <button class="btn btn-success" id="plus_2" type="button" onclick="Show()">+</button>
+                <button class="btn btn-danger" id="less_2" type="button" onclick="Hide()" >-</button>
+            </div>
+        </div>
+
+        <div class="row" id="filter_3" style="display:none;">
+            <div class="form-group col-md-1">
+                <label for="level" class="h4">Nivel</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control level" id="level_3">
+                    <option value="">Elegir...</option>
+                    {% for level in levels %}
+                        <option value="{{ level.pk }}">{{ level.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-1">
+                <label for="grade" class="h4">Grado</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control" id="grade_3" name="grade_3">
+
+                </select>
+            </div>
+
+            <div class="form-group col-md 1">
+                <button class="btn btn-success" id="plus_3" type="button" onclick="Show()">+</button>
+                <button class="btn btn-danger" id="less_3" type="button" onclick="Hide()" >-</button>
+            </div>
+        </div>
+
+        <div class="row" id="filter_4" style="display:none;">
+            <div class="form-group col-md-1">
+                <label for="level" class="h4">Nivel</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control level" id="level_4">
+                    <option value="">Elegir...</option>
+                    {% for level in levels %}
+                        <option value="{{ level.pk }}">{{ level.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-1">
+                <label for="grade" class="h4">Grado</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control" id="grade_4" name="grade_4">
+
+                </select>
+            </div>
+
+            <div class="form-group col-md 1">
+                <button class="btn btn-success" id="plus_4" type="button" onclick="Show()">+</button>
+                <button class="btn btn-danger" id="less_4" type="button" onclick="Hide()" >-</button>
+            </div>
+        </div>
+
+        <div class="row" id="filter_5" style="display:none;">
+            <div class="form-group col-md-1">
+                <label for="level" class="h4">Nivel</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control level" id="level_5">
+                    <option value="">Elegir...</option>
+                    {% for level in levels %}
+                        <option value="{{ level.pk }}">{{ level.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-1">
+                <label for="grade" class="h4">Grado</label>
+            </div>
+            <div class="form-group col-md-4">
+                <select class="form-control" id="grade_5" name="grade_5">
+
+                </select>
+            </div>
+
+            <div class="form-group col-md 1">
+                <button class="btn btn-danger" id="less_5" type="button" onclick="Hide()" >-</button>
             </div>
         </div>
 
@@ -81,62 +164,46 @@
         </div>
     </form>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 
     <script>
-        $("#level").change(function () {
+        $(".level").change(function () {
+            // .level es la clase de los combos de niveles
             var url = $("#searchform").attr("data-grades-url");  // get the url of the `load_grades` view
-            var levelId = $(this).val();  // get the selected country ID from the HTML input
+            var levelId = $(this).val();  // get the selected level ID from the HTML input
+            var levelDropdownId = $(this).attr('id');
+            var gradeDropdownId = "#grade_" + levelDropdownId.substr(levelDropdownId.length - 1);
 
             $.ajax({                       // initialize an AJAX request
                 url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
                 data: {
-                    'level': levelId       // add the country id to the GET parameters
-                    },
+                    'level': levelId,               // add the level id to the GET parameters
+                    'dropdownid': levelDropdownId   // add the id of the invoker
+                },
                 success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $("#grade").html(data);  // replace the contents of the city input with the data that came from the server
-                    }
-               });
+                            $(gradeDropdownId).html(data);  // reemplazar los grados en la lista correspondiente al nivel seleccionado
+                         }
             });
+        });
 
+        $(".btn-success").on('click', function () {
+            var plusButtonId = $(this).attr('id');
+            var id = parseInt(plusButtonId.substr(plusButtonId.length - 1));
 
-        function Show() {
-            switch(event.target.id) {
-                case "plus":
-                    var x = document.getElementById("filter_1");
-                    break;
-                case "plus_1":
-                    var x = document.getElementById("filter_2");
-                    break;
-                case "plus_2":
-                    var x = document.getElementById("filter_3");
-                    break;
-                case "plus_3":
-                    var x = document.getElementById("filter_4");
-                    break;
-            }
+            $("#filter_" + (id+1)).show();
+            $("#less_" + (id+1)).removeAttr('disabled');
+            $("#less_" + id).attr('disabled', 'disabled');
+        });
 
-            x.style.display = "block";
-        }
+        $(".btn-danger").on('click', function () {
+            var lessButtonId = $(this).attr('id');
+            var id = parseInt(lessButtonId.substr(lessButtonId.length - 1));
 
-        function Hide() {
-            switch(event.target.id) {
-                case "less_1":
-                    var x = document.getElementById("filter_1");
-                    break;
-                case "less_2":
-                    var x = document.getElementById("filter_2");
-                    break;
-                case "less_3":
-                    var x = document.getElementById("filter_3");
-                    break;
-                case "less_4":
-                    var x = document.getElementById("filter_4");
-                    break;
-            }
+            $("#filter_" + id).hide();
+            $("#less_" + (id-1)).removeAttr('disabled');
+            $("#less_" + id).attr('disabled', 'disabled');
+        });
 
-            x.style.display = "none";
-        }
     </script>
 
 

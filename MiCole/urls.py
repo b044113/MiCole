@@ -24,3 +24,6 @@ urlpatterns = [
     url(r"^escuelas/", include("escuelas.urls", namespace="escuelas")),
     url(r"^cuentas/", include("cuentas.urls", namespace="cuentas")),
 ]
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
