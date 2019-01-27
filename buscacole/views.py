@@ -73,36 +73,3 @@ def load_grades(request):
         return HttpResponse('Seleccione un nivel de educación.')
 
 
-from buscacole.forms import SearchForm
-
-def search_form2(request):
-    form = SearchForm()
-
-    return render(request, 'buscacole/formulario_busqueda2.html', {'form': form})
-
-def search2(request):
-    """
-
-    :param request:
-    :return: Realiza la búsqueda de los colegios a partir de la zona y el nivel/grado
-
-    """
-    if 'searchText' in request.GET and request.GET['searchText'] \
-            and 'gradeDropDown' in request.GET and request.GET['gradeDropDown']:
-        grade_id = request.GET['gradeDropDown']
-        q = request.GET['searchText']
-
-        query_list = q.split()
-        schools = School.objects.filter(functools.reduce(operator.and_,
-                                            (Q(locality__name__icontains=q) for q in query_list)) |
-                                        functools.reduce(operator.and_,
-                                            (Q(city__name__icontains=q) for q in query_list)) |
-                                        functools.reduce(operator.and_,
-                                            (Q(province__name__icontains=q) for q in query_list))
-                                        )
-        schools = schools.filter(Q(vacancy__grade__id=grade_id) & Q(vacancy__vacancies__gt=0)).distinct
-
-        return render(request, 'escuelas/school_list.html',
-                      {'school_list': schools, 'query': q})
-    else:
-        return HttpResponse('Especifique un criterio de búsqueda.')
