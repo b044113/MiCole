@@ -21,35 +21,12 @@ def search(request):
 
     """
     if 'q' in request.GET and request.GET['q'] \
-            and 'grade' in request.GET and request.GET['grade']:
+        and 'grade_1' in request.GET and request.GET['grade_1']:
+
         q = request.GET['q']
-        grades = {request.GET['grade']: 1}
-
-        if 'grade_2' in request.GET and request.GET['grade_2']:
-            if request.GET['grade_2'] in grades:
-                grades[request.GET['grade_2']] += 1
-            else:
-                grades[request.GET['grade_2']] = 1
-
-        if 'grade_3' in request.GET and request.GET['grade_3']:
-            if request.GET['grade_3'] in grades:
-                grades[request.GET['grade_3']] += 1
-            else:
-                grades[request.GET['grade_3']] = 1
-
-        if 'grade_4' in request.GET and request.GET['grade_4']:
-            if request.GET['grade_4'] in grades:
-                grades[request.GET['grade_4']] += 1
-            else:
-                grades[request.GET['grade_4']] = 1
-
-        if 'grade_5' in request.GET and request.GET['grade_5']:
-            if request.GET['grade_5'] in grades:
-                grades[request.GET['grade_5']] += 1
-            else:
-                grades[request.GET['grade_5']] = 1
-
         query_list = q.split()
+
+        #Filtrar por ubicación
         schools = School.objects.filter(functools.reduce(operator.and_,
                                             (Q(locality__name__icontains=q) for q in query_list)) |
                                         functools.reduce(operator.and_,
@@ -57,6 +34,17 @@ def search(request):
                                         functools.reduce(operator.and_,
                                             (Q(province__name__icontains=q) for q in query_list))
                                         )
+
+        #Filtrar por grados
+        grades = {}
+        for k in request.GET:
+            if k != 'q':
+                if request.GET[k]:
+                    if request.GET[k] in grades:
+                        grades[request.GET[k]] += 1
+                    else:
+                        grades[request.GET[k]] = 1
+
 
         for k, v in grades.items():
             print(k,v)
